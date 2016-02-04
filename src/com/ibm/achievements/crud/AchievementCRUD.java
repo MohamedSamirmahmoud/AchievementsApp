@@ -37,7 +37,7 @@ public abstract class AchievementCRUD {
 			achievement.setComment(jsonObject.get("comment").toString());
 			achievement.setLobName(jsonObject.get("lobName").toString());
 			achievement.setStatus("Pending");
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			Date date = dateFormat.parse(jsonObject.get("date").toString());
 			achievement.setAchievementDate(date);
 			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Achievements-App");
@@ -71,7 +71,7 @@ public abstract class AchievementCRUD {
 	public static boolean updateBaseAchievement(JSONObject AcheievementJson) {
 
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			Date date = dateFormat.parse(AcheievementJson.get("date").toString());
 			final String PERSISTENCE_UNIT_NAME = "Achievements-App";
 			final EntityManagerFactory factory = Persistence
@@ -79,7 +79,7 @@ public abstract class AchievementCRUD {
 			EntityManager em = factory.createEntityManager();
 			em.getTransaction().begin(); 
 			Query query = em
-					.createQuery("UPDATE Achievement a SET a.achievementType= :achievementType, a.comment= :comment, a.lobName= :lobName, a.status= :status , a.achievementDate = :achievementDate , a.brand=:brand WHERE a.achievementId= :achievementId ");
+					.createQuery("UPDATE Achievement a SET a.achievementType= :achievementType, a.comment= :comment, a.lobName= :lobName, a.status= :status , a.achievementDate = :achievementDate  WHERE a.achievementId= :achievementId ");
 			query.setParameter("achievementId",
 					Integer.valueOf(AcheievementJson.get("achievementId").toString()));
 			query.setParameter("status", AcheievementJson.get("status").toString());
@@ -88,7 +88,6 @@ public abstract class AchievementCRUD {
 			query.setParameter("achievementType", AcheievementJson.get("type")
 					.toString());
 			query.setParameter("lobName", AcheievementJson.get("lobName").toString());
-			query.setParameter("brand", AcheievementJson.get("brand").toString()) ;
 			query.executeUpdate();
 			em.getTransaction().commit();
 			em.close();

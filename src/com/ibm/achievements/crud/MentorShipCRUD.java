@@ -9,6 +9,9 @@ import java.io.IOException;
 
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -78,26 +81,25 @@ public class MentorShipCRUD extends AchievementCRUD {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
 		Query query = em
-				.createQuery("UPDATE Mentorship a SET a.TypeOfMentorShip= :type where a.achievementId= :achievementId" );
+				.createQuery("UPDATE Mentorship a SET a.typeOfMentorship= :type where a.achievementId= :achievementId" );
 		try {
-			query.setParameter("type", achievementJson.get("TypeOfMentorShip")
+			query.setParameter("type", achievementJson.get("typeOfMentorship")
 					.toString());
 	 		query.setParameter("achievementId", Integer.valueOf(achievementJson.get("achievementId").toString()));
 
 			query.executeUpdate();
 			em.getTransaction().commit();
 			em.close();
+			if(achievementJson.get("typeOfMentorship").toString().equals("Certification")||(achievementJson.get("typeOfMentorship").toString().equals("Skill"))){
 			Class classDefenation = Class.forName("com.ibm.achievements.crud."
-					+"Mentorship"+ achievementJson.get("TypeOfMentorShip").toString() + "CRUD");
+					+"Mentorship"+ achievementJson.get("typeOfMentorship").toString() + "CRUD");
 			MentorshipTypesCRUDI mentorshipTypesCRUDI = (MentorshipTypesCRUDI) classDefenation.newInstance() ; 
 			mentorshipTypesCRUDI.updateMentorship(achievementJson) ;
-			
+			}
 			return true;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			em.close();
-			return false;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,9 +120,10 @@ public class MentorShipCRUD extends AchievementCRUD {
 				.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager entityManager = factory.createEntityManager();
 		Query query = entityManager
-				.createQuery("SELECT m  FROM MentorShip m WHERE m.achievementId=:achievementId");
-		query.setParameter("achievementid", achievement.getAchievementId());
+				.createQuery("SELECT m  FROM Mentorship m WHERE m.achievementId=:achievementId");
+		query.setParameter("achievementId", achievement.getAchievementId());
 		Mentorship mentorship = (Mentorship) query.getSingleResult();
+		if(mentorship.getTypeOfMentorship().equals("Skill")||mentorship.getTypeOfMentorship().equals("Certification")){
 		Class classDefenation;
 		try {
 			classDefenation = Class.forName("com.ibm.achievements.crud."
@@ -134,6 +137,16 @@ public class MentorShipCRUD extends AchievementCRUD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		  ObjectMapper mapper = new ObjectMapper() ;
+		  DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			mapper.setDateFormat(df);
+ 		  try {
+			return mapper.writeValueAsString(mentorship) ;
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

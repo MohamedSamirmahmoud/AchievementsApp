@@ -21,11 +21,13 @@ public class SpeakingOrganizingEvent implements Serializable {
 
 	private String country;
 
-	private String sessions;
+	private String session;
+   
+	private String sessionType ; 
+	
+    private String role ;	
 
-	private String sessionType;
-
-	private String speakingOrganizingEventsType;
+	private String roleOfOrganizer;
 
 	private String titleOfConference;
 
@@ -66,13 +68,7 @@ public class SpeakingOrganizingEvent implements Serializable {
 		this.country = country;
 	}
 
-	public String getSessions() {
-		return this.sessions;
-	}
-
-	public void setSessions(String sessions) {
-		this.sessions = sessions;
-	}
+	
 
 	public String getSessionType() {
 		return this.sessionType;
@@ -82,13 +78,7 @@ public class SpeakingOrganizingEvent implements Serializable {
 		this.sessionType = sessionType;
 	}
 
-	public String getSpeakingOrganizingEventsType() {
-		return this.speakingOrganizingEventsType;
-	}
-
-	public void setSpeakingOrganizingEventsType(String speakingOrganizingEventsType) {
-		this.speakingOrganizingEventsType = speakingOrganizingEventsType;
-	}
+	
 
 	public String getTitleOfConference() {
 		return this.titleOfConference;
@@ -120,6 +110,30 @@ public class SpeakingOrganizingEvent implements Serializable {
 
 	public void setAchievement(Achievement achievement) {
 		this.achievement = achievement;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getRoleOfOrganizer() {
+		return roleOfOrganizer;
+	}
+
+	public void setRoleOfOrganizer(String roleOfOrganizer) {
+		this.roleOfOrganizer = roleOfOrganizer;
+	}
+
+	public String getSession() {
+		return session;
+	}
+
+	public void setSession(String session) {
+		this.session = session;
 	}
 
 }

@@ -33,6 +33,7 @@ public class Achievement implements Serializable {
 	private String comment;
 
 	private String lobName;
+	
 
 	private int markedAsDeleted;
 

@@ -27,9 +27,10 @@ public class SpeakingOrganizingEventCRUD extends AchievementCRUD{
 			JSONObject jsonObject = new JSONObject(achievementJson) ;
 			event.setBusinessUnits(jsonObject.getString("businessUnits"));
 			event.setCountry(jsonObject.getString("country"));
-			event.setSessions(jsonObject.getString("sessions"));
+			event.setSession(jsonObject.getString("session"));
 			event.setSessionType(jsonObject.getString("sessionType"));
-			event.setSpeakingOrganizingEventsType(jsonObject.getString("speakingOrganizingEventsType"));
+			event.setRole(jsonObject.getString("role"));
+			event.setRoleOfOrganizer(jsonObject.getString("roleOfOrganizer"));
 			event.setTitleOfConference(jsonObject.getString("titleOfConference"));
 			event.setTitleOfEvent(jsonObject.getString("titleOfEvent"));
 			event.setTypeOfEvent(jsonObject.getString("typeOfEvent"));
@@ -61,9 +62,10 @@ public class SpeakingOrganizingEventCRUD extends AchievementCRUD{
 		entityManager.getTransaction().begin(); 
 		event.setBusinessUnits(achievementJson.getString("businessUnits"));
 		event.setCountry(achievementJson.getString("country"));
-		event.setSessions(achievementJson.getString("sessions"));
+		event.setSession(achievementJson.getString("session"));
 		event.setSessionType(achievementJson.getString("sessionType"));
-		event.setSpeakingOrganizingEventsType(achievementJson.getString("speakingOrganizingEventsType"));
+		event.setRole(achievementJson.getString("role"));
+		event.setRoleOfOrganizer(achievementJson.getString("roleOfOrganizer"));
 		event.setTitleOfConference(achievementJson.getString("titleOfConference"));
 		event.setTitleOfEvent(achievementJson.getString("titleOfEvent"));
 		event.setTypeOfEvent(achievementJson.getString("typeOfEvent"));

@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import com.ibm.achievements.model.Achievement;
 import com.ibm.achievements.model.BoardReview;
 import com.ibm.achievements.model.CertificationsAndProgram;
+import com.ibm.db2.jcc.am.mp;
 
 public class CertificationsAndProgramsCRUD extends AchievementCRUD {
 
@@ -61,12 +62,12 @@ public class CertificationsAndProgramsCRUD extends AchievementCRUD {
 		EntityManager entityManager = factroy.createEntityManager();
 		entityManager.getTransaction().begin();
 		Query query = entityManager
-				.createQuery("UPDATE CertificationsAndProgram cab SET  cab.typeOfCertification =: typeOfCertification WHERE cab.achievementid =:achievementid");
+				.createQuery("UPDATE CertificationsAndProgram cab SET  cab.typeOfCertification =: typeOfCertification WHERE cab.achievementId =:achievementId");
 		try {
 			query.setParameter("typeOfCertification",
 					achievementJson.get("typeOfCertification").toString());
-			query.setParameter("achievementid",
-					Integer.valueOf(achievementJson.get("achievementid").toString()));
+			query.setParameter("achievementId",
+					Integer.valueOf(achievementJson.get("achievementId").toString()));
 			query.executeUpdate();
 			entityManager.getTransaction().commit();
 			entityManager.close();
@@ -96,11 +97,12 @@ public class CertificationsAndProgramsCRUD extends AchievementCRUD {
 				.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager entityManager = factory.createEntityManager();
 		Query query = entityManager
-				.createQuery("SELECT cp from CertificationsAndProgram br WHERE cp.achievementid=:achievementid ");
-		query.setParameter("achievementid", achievement.getAchievementId());
+				.createQuery("SELECT cp from CertificationsAndProgram br WHERE cp.achievementId=:achievementId ");
+		query.setParameter("achievementId", achievement.getAchievementId());
 		CertificationsAndProgram certificationandprograms = (CertificationsAndProgram) query
 				.getSingleResult();
 		certificationandprograms.setAchievement(achievement);
+		if(certificationandprograms.getTypeOfCertification().equals("Product")||certificationandprograms.getTypeOfCertification().equals("Professional")){
 		try {
 			Class classDifination = Class.forName("com.ibm.achievements.crud."
 					+"CertificationsAndPrograms"+ certificationandprograms.getTypeOfCertification() + "CRUD");
@@ -110,7 +112,14 @@ public class CertificationsAndProgramsCRUD extends AchievementCRUD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		}
+		ObjectMapper mapper = new ObjectMapper() ; 
+		try {
+			return mapper.writeValueAsString(achievement) ;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 
 	}

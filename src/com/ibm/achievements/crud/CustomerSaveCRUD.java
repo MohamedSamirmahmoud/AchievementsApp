@@ -33,7 +33,7 @@ public class CustomerSaveCRUD extends AchievementCRUD{
 			customerSave.setBusinessUnits(jsonObject.get("businessUnits").toString());
 			customerSave.setCountry(jsonObject.get("country").toString());
 			customerSave.setCustomerName(jsonObject.get("customerName").toString());
-			customerSave.setCustomerProblem(jsonObject.get("CustomerProblem").toString());
+			customerSave.setCustomerProblem(jsonObject.get("customerProblem").toString());
 			customerSave.setEmployeeContribution(jsonObject.get("employeeContribution").toString());
 			customerSave.setEngagementName(jsonObject.get("engagementName").toString());
 			final String PERSISTENT_UNIT_NAME = "Achievements-App";
@@ -63,13 +63,13 @@ public class CustomerSaveCRUD extends AchievementCRUD{
 		EntityManager entityManager = factroy.createEntityManager();
 		entityManager.getTransaction().begin();
 		Query query = entityManager
-				.createQuery("UPDATE CustomerSave C SET C.brand =:brand, C.businessUnits=:businessUnits , C.country=:country ,C.customerName=:customerName , C.CustomerProblem=:CustomerProblem  ,C.employeeContribution=:employeeContribution ,C.engagementName=:engagementName  WHERE D.achievementId=:achievementId");
+				.createQuery("UPDATE CustomerSave C SET C.brand =:brand, C.businessUnits=:businessUnits , C.country=:country ,C.customerName=:customerName , C.customerProblem=:customerProblem  ,C.employeeContribution=:employeeContribution ,C.engagementName=:engagementName  WHERE C.achievementId=:achievementId");
 		try {
 			query.setParameter("brand", achievementJson.get("brand").toString());
 			query.setParameter("businessUnits", achievementJson.get("businessUnits").toString());
 			query.setParameter("country", achievementJson.get("country").toString());
 			query.setParameter("customerName", achievementJson.get("customerName").toString());
-			query.setParameter("CustomerProblem", achievementJson.get("CustomerProblem").toString());
+			query.setParameter("customerProblem", achievementJson.get("customerProblem").toString());
 			query.setParameter("employeeContribution", achievementJson.get("employeeContribution").toString());
 			query.setParameter("engagementName", achievementJson.get("engagementName").toString());
 			query.setParameter("achievementId",Integer.valueOf(achievementJson.get("achievementId").toString()));
@@ -99,7 +99,7 @@ public class CustomerSaveCRUD extends AchievementCRUD{
 			CustomerSave customerSave = (CustomerSave) query.getSingleResult();
 			customerSave.setAchievement(achievement);
 			ObjectMapper mapper = new ObjectMapper();
-			DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			mapper.setDateFormat(df);
 			try {
 				

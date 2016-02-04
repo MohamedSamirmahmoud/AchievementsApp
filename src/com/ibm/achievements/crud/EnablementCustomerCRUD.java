@@ -25,6 +25,7 @@ public class EnablementCustomerCRUD implements EnablementTypesCRUDI {
 		EnablementCustomer enablementCustomer=new EnablementCustomer();
 		enablementCustomer.setEnablement(enablement);
 		enablementCustomer.setAchievementId(enablement.getAchievementId());
+		System.out.println("Here 3");
 	    try {
 	    	enablementCustomer.setCustomerName(enablementJson.getString("customerName"));
 	    	enablementCustomer.setCustomerType(enablementJson.getString("customerType"));
@@ -71,10 +72,11 @@ public class EnablementCustomerCRUD implements EnablementTypesCRUDI {
 		final String PERSISTENCE_UNIT_NAME = "Achievements-App" ; 
 	     final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		 EntityManager entityManager = entityManagerFactory.createEntityManager() ; 
-		 
+		 System.out.println("here 2");
 		 EnablementCustomer enablementCustomer =  entityManager.find(EnablementCustomer.class,Integer.valueOf(achievementId)) ; 
+		 System.out.println(enablementCustomer.getAchievementId());
 		 ObjectMapper mapper = new ObjectMapper() ; 
-		 DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		 DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			mapper.setDateFormat(df);
 		try {
 			return mapper.writeValueAsString(enablementCustomer);

@@ -180,6 +180,7 @@ public class AchievementQuerying {
 	@Path("/GetAchievementById")
 	public String getAchievementById(
 			@FormParam("achievementId") String achievementId) {
+		System.out.println("Here 1");
 		Achievement achievement = AchievementCRUD
 				.getBaseAchievement(achievementId);
 		try {

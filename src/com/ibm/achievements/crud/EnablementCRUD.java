@@ -25,7 +25,6 @@ public class EnablementCRUD extends AchievementCRUD{
 	@Override
 	public boolean addAchievement(Achievement achievement,
 			String achievementJson) {
-		// TODO Auto-generated method stub
 		try {
 			JSONObject jsonObject = new JSONObject(achievementJson);
 			Enablement enablement = new Enablement() ;
@@ -44,7 +43,8 @@ public class EnablementCRUD extends AchievementCRUD{
 			entityManager.persist(enablement);
 			entityManager.getTransaction().commit();
 			entityManager.close();
-			if(jsonObject.get("typeOfEnablement").toString()=="Customer"){
+			System.out.println(jsonObject.get("typeOfEnablement").toString());
+			if(jsonObject.get("typeOfEnablement").toString().equals("Customer")){
 			Class classDefenation;
 			try {
 				classDefenation = Class.forName("com.ibm.achievements.crud."+"Enablement" +enablement.getTypeOfEnablement()+ "CRUD");
@@ -88,7 +88,7 @@ public class EnablementCRUD extends AchievementCRUD{
 		if(achievementJson.get("typeOfEnablement").toString().equals("Customer")){
 		Class classDefenation;
 		try {
-			classDefenation = Class.forName("com.ibm.achievements.crud."+"Enablement" + achievementJson.get("TypeOfEnablement").toString() + "CRUD");
+			classDefenation = Class.forName("com.ibm.achievements.crud."+"Enablement" + achievementJson.get("typeOfEnablement").toString() + "CRUD");
 			EnablementTypesCRUDI enablementTypesCRUDI;
 			enablementTypesCRUDI = (EnablementTypesCRUDI) classDefenation.newInstance();
 			enablementTypesCRUDI.updateEnablement(achievementJson ) ; 
@@ -121,16 +121,22 @@ public class EnablementCRUD extends AchievementCRUD{
 	    Class classDefenation;
 		try {
 			classDefenation = Class.forName("com.ibm.achievements.crud."+"Enablement" + enablement.getTypeOfEnablement() + "CRUD");
-			MentorshipTypesCRUDI mentorshipTypesCRUDI;
-            mentorshipTypesCRUDI = (MentorshipTypesCRUDI) classDefenation.newInstance();
-			
-			return mentorshipTypesCRUDI.getAchievement(enablement.getAchievementId()+"") ;
+			EnablementTypesCRUDI enablementTypesCRUDI;
+			enablementTypesCRUDI = (EnablementTypesCRUDI) classDefenation.newInstance();
+			return enablementTypesCRUDI.getAchievement(enablement.getAchievementId()+"") ;
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    }
-		return null;
+	    ObjectMapper mapper = new ObjectMapper() ; 
+		try {
+			return mapper.writeValueAsString(enablement);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return null ;
 	}
 
 }

@@ -63,22 +63,18 @@ public class SuccessStoriesCRUD extends AchievementCRUD {
 	public boolean updateAchievement(JSONObject achievementJson) {
 		// TODO Auto-generated method stub
 		try {
-			JSONObject jsonObject = new JSONObject(achievementJson);
 			final String PERSISTENT_UNIT_NAME = "Achievements-App";
 			final EntityManagerFactory factory = Persistence
 					.createEntityManagerFactory(PERSISTENT_UNIT_NAME);
 			EntityManager entityManager = factory.createEntityManager();
 			entityManager.getTransaction().begin();
 			Query query = entityManager
-					.createQuery("UPDATE SuccessStory Ss SET Ss.busUnit=:busUnit, Ss.country=:country, Ss.engagementName=:engagementName, Ss.successStoryLink=:successStoryLink, Ss.type=:type  where Ss.achievementId= :achievementId");
-			SuccessStory successStory = new SuccessStory();
-			successStory.setBusUnit(jsonObject.get("busUnit").toString());
-			successStory.setCountry(jsonObject.get("country").toString());
-			successStory.setEngagementName(jsonObject.get("engagementName")
-					.toString());
-			successStory.setSuccessStoryLink(jsonObject.get("successStoryLink")
-					.toString());
-			successStory.setType(jsonObject.get("type").toString());
+					.createQuery("UPDATE SuccessStory Ss SET Ss.busUnit=:busUnit, Ss.country=:country, Ss.engagementName=:engagementName, Ss.successStoryLink=:successStoryLink, Ss.type=:successStoriesType  where Ss.achievementId= :achievementId");
+			query.setParameter("busUnit", achievementJson.get("busUnit").toString());
+			query.setParameter("country", achievementJson.get("country").toString());
+			query.setParameter("engagementName", achievementJson.get("engagementName").toString());
+			query.setParameter("successStoryLink", achievementJson.get("successStoryLink").toString());
+			query.setParameter("successStoriesType", achievementJson.get("successStoriesType").toString());
 			query.setParameter("achievementId",
 					Integer.valueOf(achievementJson.get("achievementId").toString()));
 			query.executeUpdate();
@@ -101,7 +97,7 @@ public class SuccessStoriesCRUD extends AchievementCRUD {
 		EntityManager entityManager = factory.createEntityManager();
 		Query query = entityManager
 				.createQuery("SELECT S FROM SuccessStory S WHERE S.achievementId=:achievementId");
-		query.setParameter("achievementid", achievement.getAchievementId());
+		query.setParameter("achievementId", achievement.getAchievementId());
 
 		SuccessStory successStory = (SuccessStory) query.getSingleResult();
 		successStory.setAchievement(achievement);

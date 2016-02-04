@@ -58,14 +58,14 @@ public class CustomerReferencesCRUD extends AchievementCRUD {
 		EntityManager entityManager = factory.createEntityManager();
 		entityManager.getTransaction().begin(); 
 		Query query = entityManager
-				.createQuery("UPDATE CustomerReference cr SET cr.busUnit=:busUnit ,cr.brand=:brand ,cr.country=:country , cr.engagementName=:engagementName , cr.customerName=:customerName WHERE cr.achievementid=:achievementid ");
+				.createQuery("UPDATE CustomerReference cr SET cr.busUnit=:busUnit ,cr.brand=:brand ,cr.country=:country , cr.engagementName=:engagementName , cr.customerName=:customerName WHERE cr.achievementId=:achievementId ");
 		try {
 			query.setParameter("brand", achievementJson.get("brand").toString());
 			query.setParameter("busUnit", achievementJson.get("busUnit").toString()) ;
 			query.setParameter("country", achievementJson.get("country").toString()) ;
 			query.setParameter("engagementName", achievementJson.get("engagementName").toString()) ;
 			query.setParameter("customerName", achievementJson.get("customerName").toString()) ;
-			query.setParameter("achievementid", Integer.valueOf(achievementJson.get("achievementid").toString())) ;
+			query.setParameter("achievementId", Integer.valueOf(achievementJson.get("achievementId").toString())) ;
 			query.executeUpdate() ;
 			entityManager.getTransaction().commit();
 			entityManager.close();
@@ -83,8 +83,8 @@ public class CustomerReferencesCRUD extends AchievementCRUD {
 		     final String PERSISTENCE_UNIT_NAME = "Achievements-App" ; 
 		     final EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		     EntityManager entityManager = factory.createEntityManager();
-		     Query query = entityManager.createQuery("SELECT cr from CustomerReference cr WHERE cr.achievementid=:achievementid ") ;
-		     query.setParameter("achievementid", achievement.getAchievementId()) ;
+		     Query query = entityManager.createQuery("SELECT cr from CustomerReference cr WHERE cr.achievementId=:achievementId ") ;
+		     query.setParameter("achievementId", achievement.getAchievementId()) ;
 		     CustomerReference customerreference = (CustomerReference)query.getSingleResult() ;
 		     customerreference.setAchievement(achievement);
 		     ObjectMapper mapper = new ObjectMapper() ;

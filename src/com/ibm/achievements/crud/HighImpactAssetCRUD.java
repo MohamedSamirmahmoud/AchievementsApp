@@ -62,10 +62,10 @@ public class HighImpactAssetCRUD extends AchievementCRUD {
  		em.getTransaction().begin();
  		Query query= em.createQuery("UPDATE HighImpactAsset h SET h.typeOfAsset=:typeOfAsset , h.brand=:brand , h.description=:description , h.highImpactAssetName=:highImpactAssetName , h.typeOfAsset2=:typeOfAsset2 where h.achievementId= :achievementId");
  		query.setParameter("typeOfAsset", achievementJson.get("typeOfAsset").toString());
- 		query.setParameter("brand", Integer.valueOf(achievementJson.get("brand").toString()));
- 		query.setParameter("description", Integer.valueOf(achievementJson.get("description").toString()));
- 		query.setParameter("highImpactAssetName", Integer.valueOf(achievementJson.get("highImpactAssetName").toString()));
- 		query.setParameter("typeOfAsset2", Integer.valueOf(achievementJson.get("typeOfAsset2").toString()));
+ 		query.setParameter("brand", achievementJson.get("brand").toString());
+ 		query.setParameter("description",achievementJson.get("description").toString());
+ 		query.setParameter("highImpactAssetName",achievementJson.get("highImpactAssetName").toString());
+ 		query.setParameter("typeOfAsset2",achievementJson.get("typeOfAsset2").toString());
  		query.setParameter("achievementId", Integer.valueOf(achievementJson.get("achievementId").toString()));
  		query.executeUpdate();
 		em.getTransaction().commit();
@@ -87,7 +87,7 @@ public class HighImpactAssetCRUD extends AchievementCRUD {
 	     final EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	     EntityManager entityManager = factory.createEntityManager();
 	     Query query= entityManager.createQuery("SELECT h FROM HighImpactAsset h WHERE h.achievementId=:achievementId");
-	     query.setParameter("achievementid", achievement.getAchievementId()) ;
+	     query.setParameter("achievementId", achievement.getAchievementId()) ;
 	     HighImpactAsset highImpactAsset= (HighImpactAsset)query.getSingleResult();
 	    highImpactAsset.setAchievement(achievement);
 	     ObjectMapper mapper = new ObjectMapper() ;

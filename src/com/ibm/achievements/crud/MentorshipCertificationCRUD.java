@@ -42,7 +42,7 @@ public class MentorshipCertificationCRUD implements MentorshipTypesCRUDI{
 	@Override
 	public boolean updateMentorship(JSONObject jsonObject) {
 		// TODO Auto-generated method stub
-		final String PERSISTANCE_UNIT_NAME="Achievement-app";
+		final String PERSISTANCE_UNIT_NAME="Achievements-App";
 		final EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory(PERSISTANCE_UNIT_NAME);
 		EntityManager entityManager= entityManagerFactory.createEntityManager();
 		try {
@@ -63,10 +63,10 @@ public class MentorshipCertificationCRUD implements MentorshipTypesCRUDI{
 
 	@Override
 	public String getAchievement(String achievementId) {
-       final String PERSISTANCE_UNIT_NAME ="Achievement-app";
+       final String PERSISTANCE_UNIT_NAME ="Achievements-App";
        final EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory(PERSISTANCE_UNIT_NAME);
        EntityManager entityManager = entityManagerFactory. createEntityManager();
-       MentorshipCertification mentorshipCertification = entityManager . find(MentorshipCertification.class, Integer.valueOf("achievementId"));
+       MentorshipCertification mentorshipCertification = entityManager . find(MentorshipCertification.class, Integer.valueOf(achievementId));
        ObjectMapper mapper = new ObjectMapper() ; 
        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		mapper.setDateFormat(df);

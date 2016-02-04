@@ -47,7 +47,8 @@ public class AchievementManipulation {
 		Achievement achievement = AchievementCRUD
 				.addBaseAchievement(achievementJson);
 		JSONObject jsonObject = new JSONObject();
-		try {
+		try {            
+			System.out.println(achievement.getAchievementType());
 			Class classDefinition = Class.forName("com.ibm.achievements.crud."
 					+ achievement.getAchievementType() + "CRUD");
 			AchievementCRUD achievementCRUD = (AchievementCRUD) classDefinition
@@ -71,6 +72,7 @@ public class AchievementManipulation {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateAchievement(
 			@FormParam("achievementJson") String achievementJson) {
+		System.out.println("Updating....");
 		JSONObject jsonObject = new JSONObject();
 		try {
 			JSONObject jsonObject2 = new JSONObject(achievementJson);

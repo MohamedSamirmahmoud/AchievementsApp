@@ -58,12 +58,11 @@ public class BoardReviewsCRUD extends AchievementCRUD {
 			final EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENT_UNIT_NAME);
 			EntityManager entityManager = factory.createEntityManager();
 			entityManager.getTransaction().begin();
-			Query query =  entityManager.createQuery("UPDATE BroadReview Br SET Br.flag=:flag, Br.typeOfCertificate=:typeOfCertificate ,Br.reviewType=:reviewType ,Br.boardReviewLevel=:boardReviewLevel  where Br.achievementId= :achievementId");
-			BoardReview boardReview = new BoardReview();
-			boardReview.setFlag(Integer.valueOf(achievementJson.get("flag").toString()));
-			boardReview.setTypeOfCertificate(achievementJson.get("typeOfCertificate").toString());
-			boardReview.setReviewType(achievementJson.get("reviewType").toString());
-			boardReview.setBoardReviewLevel(achievementJson.get("boardReviewLevel").toString());
+			Query query =  entityManager.createQuery("UPDATE BoardReview Br SET Br.flag=:flag, Br.typeOfCertificate=:typeOfCertificate ,Br.reviewType=:reviewType ,Br.boardReviewLevel=:boardReviewLevel  where Br.achievementId= :achievementId");
+			query.setParameter("flag", Integer.valueOf(achievementJson.get("flag").toString()));
+			query.setParameter("typeOfCertificate", achievementJson.get("typeOfCertificate").toString());
+			query.setParameter("reviewType", achievementJson.get("reviewType").toString());
+			query.setParameter("boardReviewLevel", achievementJson.get("boardReviewLevel").toString());
 			query.setParameter("achievementId", Integer.valueOf(achievementJson.get("achievementId").toString()));
 		 	query.executeUpdate();
 		 	entityManager.getTransaction().commit();
@@ -79,8 +78,8 @@ public class BoardReviewsCRUD extends AchievementCRUD {
      final String PERSISTENCE_UNIT_NAME = "Achievements-App" ; 
      final EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
      EntityManager entityManager = factory.createEntityManager();
-     Query query = entityManager.createQuery("SELECT br from BoardReview br WHERE br.achievementid=:achievementid ") ;
-     query.setParameter("achievementid", achievement.getAchievementId()) ;
+     Query query = entityManager.createQuery("SELECT br from BoardReview br WHERE br.achievementId=:achievementId ") ;
+     query.setParameter("achievementId", achievement.getAchievementId()) ;
      BoardReview boardReview = (BoardReview)query.getSingleResult() ;
      boardReview.setAchievement(achievement);
      ObjectMapper mapper = new ObjectMapper() ;
