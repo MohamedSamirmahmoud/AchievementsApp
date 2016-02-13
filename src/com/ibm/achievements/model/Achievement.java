@@ -33,6 +33,7 @@ public class Achievement implements Serializable {
 	private String comment;
 
 	private String lobName;
+	private String businessUnits  ; 
 	
 
 	private int markedAsDeleted;
@@ -110,6 +111,14 @@ public class Achievement implements Serializable {
 
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
+	}
+
+	public String getBusinessUnits() {
+		return businessUnits;
+	}
+
+	public void setBusinessUnits(String businessUnits) {
+		this.businessUnits = businessUnits;
 	}
 
 }

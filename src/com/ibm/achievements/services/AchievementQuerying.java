@@ -49,6 +49,7 @@ public class AchievementQuerying {
 		query.setParameter("employeeId", Integer.valueOf(employeeId));
 
 		List<Achievement> achievements = query.getResultList();
+	    if(achievements.size()==0||achievements.get(0)==null) achievements = new ArrayList<Achievement>() ;
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setDateFormat(df);
@@ -75,6 +76,7 @@ public class AchievementQuerying {
 		query.setParameter("status", status);
 
 		List<Achievement> achievements = query.getResultList();
+		if(achievements.size()==0||achievements.get(0)==null) achievements = new ArrayList<Achievement>() ;
 		ObjectMapper mapper = new ObjectMapper();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		mapper.setDateFormat(df);
@@ -103,6 +105,7 @@ public class AchievementQuerying {
 		query.setParameter("employeeId", Integer.valueOf(employeeId));
 		query.setParameter("status", status);
 		List<Achievement> achievements = query.getResultList();
+		if(achievements.size()==0||achievements.get(0)==null) achievements = new ArrayList<Achievement>() ;
 		ObjectMapper mapper = new ObjectMapper();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		mapper.setDateFormat(df);
@@ -135,12 +138,13 @@ public class AchievementQuerying {
 				.createQuery("SELECT a FROM Achievement a JOIN a.employees e WHERE a.achievementType= :type AND e.manager.employeeId= :managerId ");
 		query.setParameter("type", type);
 		query.setParameter("managerId", Integer.valueOf(managerId));
-		List<Achievement> achievment = query.getResultList();
+		List<Achievement> achievements = query.getResultList();
+		if(achievements.size()==0||achievements.get(0)==null) achievements = new ArrayList<Achievement>() ;
 		ObjectMapper mapper = new ObjectMapper();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		mapper.setDateFormat(df);
 		try {
-			return mapper.writeValueAsString(achievment);
+			return mapper.writeValueAsString(achievements);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -162,6 +166,7 @@ public class AchievementQuerying {
 		query.setParameter("employeeId", Integer.valueOf(employeeId));
 		query.setParameter("brand", brand);
 		List<Achievement> achievements = query.getResultList();
+		if(achievements.size()==0||achievements.get(0)==null) achievements = new ArrayList<Achievement>() ;
 		ObjectMapper mapper = new ObjectMapper();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		mapper.setDateFormat(df);
@@ -210,6 +215,7 @@ public class AchievementQuerying {
 		query.setParameter("managerId", Integer.valueOf(managerId));
 		query.setParameter("brand", brand);
 		List<Achievement> achievements = query.getResultList();
+		if(achievements.size()==0||achievements.get(0)==null) achievements = new ArrayList<Achievement>() ;
 		ObjectMapper mapper = new ObjectMapper();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		mapper.setDateFormat(df);
@@ -229,6 +235,7 @@ public class AchievementQuerying {
 	public String getAchievementbyMonth(@FormParam("year") String year,
 			@FormParam("month") String month,
 			@FormParam("managerId") String managerId) {
+		System.out.println(month+"<-month");
 
 		ObjectMapper mapper = new ObjectMapper();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -251,10 +258,11 @@ public class AchievementQuerying {
 		final String PERSISTENCE_UNIT_NAME = "Achievements-App" ;
 		final EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager entityManager = factory.createEntityManager() ; 
-		Query query = entityManager.createQuery("select a from Achievement a JOIN a.employees e where e.manager.employeeId=:managerId");
+		Query query = entityManager.createQuery("select distinct  a from Achievement a JOIN a.employees e where e.manager.employeeId=:managerId and a.status='Pending' ");
 		query.setParameter("managerId", Integer.parseInt(managerId));
 		List<Achievement> achievements = query.getResultList() ;
-		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		if(achievements.size()==0||achievements.get(0)==null) achievements = new ArrayList<Achievement>() ;
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 	     ObjectMapper mapper = new ObjectMapper() ; 
 	     mapper.setDateFormat(df);
           try {
@@ -279,11 +287,9 @@ public class AchievementQuerying {
 		final String PERSISTANCE_UNIT_NAME = "Achievements-App";
 		final EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(PERSISTANCE_UNIT_NAME);
-		System.out.println("HEllo");
 		EntityManager em = factory.createEntityManager();
 		if (quarter.equals("1")) {
-			System.out.println("Hello");
-			retVal.addAll(AchievementCRUD.getAchievementbyMonth(year , "01",
+			retVal.addAll(AchievementCRUD.getAchievementbyMonth(year ,"01",
 					managerId));
 			retVal.addAll(AchievementCRUD.getAchievementbyMonth(year,"02", 
 					managerId));
@@ -315,12 +321,10 @@ public class AchievementQuerying {
 					managerId));
 
 		}
-		JSONObject jsonObject = new JSONObject() ;
 		ObjectMapper mapper = new ObjectMapper () ; 
 		try {
-			jsonObject.put("achievements", mapper.writeValueAsString(retVal)) ;
-		return jsonObject.toString() ;
-		} catch (JSONException | IOException e) {
+		return mapper.writeValueAsString(retVal);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

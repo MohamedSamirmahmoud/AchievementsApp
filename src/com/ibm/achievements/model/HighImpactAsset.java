@@ -16,7 +16,6 @@ public class HighImpactAsset implements Serializable {
 	@Id
 	private int achievementId;
 
-	private String brand;
 
 	private String description;
 
@@ -42,14 +41,6 @@ public class HighImpactAsset implements Serializable {
 		this.achievementId = achievementId;
 	}
 
-
-	public String getBrand() {
-		return this.brand;
-	}
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
 
 	public String getDescription() {
 		return this.description;

@@ -11,10 +11,6 @@ public class CertificationsAndProgramsProduct implements Serializable {
 	@Id
 	private int achievementId;
 
-	private String brand;
-
-	private String busUnit;
-
 	private String certificationExam;
 
 	@Column(name = "PRODUCT_NAME")
@@ -36,22 +32,7 @@ public class CertificationsAndProgramsProduct implements Serializable {
 		this.achievementId = achievementId;
 	}
 
-	public String getBrand() {
-		return this.brand;
-	}
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getBusUnit() {
-		return this.busUnit;
-	}
-
-	public void setBusUnit(String busUnit) {
-		this.busUnit = busUnit;
-	}
-
+	
 	public String getCertificationExam() {
 		return this.certificationExam;
 	}

@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import javax.ws.rs.FormParam;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +30,7 @@ public abstract class AchievementCRUD {
 		List<Achievement>achievements = query.getResultList() ;
 		return achievements ;
 	}
+	
 	public static Achievement addBaseAchievement(String AcheievementJson) {
 		Achievement achievement = new Achievement();
 		try {
@@ -36,7 +38,9 @@ public abstract class AchievementCRUD {
 			achievement.setAchievementType(jsonObject.get("type").toString());
 			achievement.setComment(jsonObject.get("comment").toString());
 			achievement.setLobName(jsonObject.get("lobName").toString());
+			achievement.setBusinessUnits(jsonObject.getString("busUnits"));
 			achievement.setStatus("Pending");
+			JSONArray employeesId = jsonObject.getJSONArray("sharedEmployess") ;
 			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			Date date = dateFormat.parse(jsonObject.get("date").toString());
 			achievement.setAchievementDate(date);
@@ -47,9 +51,15 @@ public abstract class AchievementCRUD {
 							.valueOf(jsonObject.get("employeeId").toString())) ;
 			achievement.getEmployees().add(employee);
 			employee.getAchievements().add(achievement);
+			for(int i=0 ; i<employeesId.length() ; ++i){
+				achievement.getEmployees().add(EmployeeCRUD.getEmployeeById(employeesId.getInt(i)));
+			}
 			entityManager.persist(achievement);
 			entityManager.getTransaction().commit();
 			entityManager.close();
+			for(int i=0 ; i<employeesId.length() ; ++i){
+				EmployeeCRUD.addAchievementToEmployee(employeesId.getInt(i), achievement);
+			}
 			return achievement;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -131,8 +141,6 @@ public abstract class AchievementCRUD {
 			return true;
 		return false;
 	}
-	
-	
 	public static  List<Achievement> getAchievementbyMonth( String year , String month , String managerId){
 		final String PERSISTANCE_UNIT_NAME = "Achievements-App" ;
 		final EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTANCE_UNIT_NAME);
@@ -143,6 +151,5 @@ public abstract class AchievementCRUD {
 		return  achievements;
 		
 	}    
-	
 	
 }

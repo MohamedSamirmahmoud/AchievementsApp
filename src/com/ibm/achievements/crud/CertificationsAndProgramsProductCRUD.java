@@ -29,10 +29,8 @@ CertificationAndProgramsTypesCRUDI{
 		certificationsAndProgramsProduct
 				.setAchievementId(certificationsAndProgram.getAchievementId());
 		try {
-			certificationsAndProgramsProduct.setBrand(jsonObject
-					.getString("brand"));
-			certificationsAndProgramsProduct.setBusUnit(jsonObject
-					.getString("busUnit"));
+			
+			
 			certificationsAndProgramsProduct.setCertificationExam(jsonObject
 					.getString("certificatioExam"));
 			certificationsAndProgramsProduct.setProductName(jsonObject
@@ -65,10 +63,7 @@ CertificationAndProgramsTypesCRUDI{
 					.find(CertificationsAndProgramsProduct.class,
 							jsonObject.getInt("achievementId"));
 			entityManager.getTransaction().begin();
-			certificationsAndProgramsProduct.setBrand(jsonObject
-					.getString("brand"));
-			certificationsAndProgramsProduct.setBusUnit(jsonObject
-					.getString("busUnit"));
+			
 			certificationsAndProgramsProduct.setCertificationExam(jsonObject
 					.getString("certificatioExam"));
 			certificationsAndProgramsProduct.setProductName(jsonObject

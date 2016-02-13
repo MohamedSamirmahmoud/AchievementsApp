@@ -17,7 +17,6 @@ public class SuccessStory implements Serializable {
 	@Id
 	private int achievementId;
 
-	private String busUnit;
 
 	private String country;
 
@@ -46,13 +45,7 @@ public class SuccessStory implements Serializable {
 		this.achievementId = achievementId;
 	}
 
-	public String getBusUnit() {
-		return this.busUnit;
-	}
-
-	public void setBusUnit(String busUnit) {
-		this.busUnit = busUnit;
-	}
+	
 
 	public String getCountry() {
 		return this.country;

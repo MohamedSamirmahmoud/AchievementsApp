@@ -16,7 +16,6 @@ public class Enablement implements Serializable {
 	@Id
 	private int achievementId;
 
-	private String busUnit;
 
 	private String duration;
 
@@ -43,15 +42,6 @@ public class Enablement implements Serializable {
 
 	public void setAchievementId(int achievementId) {
 		this.achievementId = achievementId;
-	}
-
-
-	public String getBusUnit() {
-		return this.busUnit;
-	}
-
-	public void setBusUnit(String busUnit) {
-		this.busUnit = busUnit;
 	}
 
 	public String getDuration() {

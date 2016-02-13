@@ -25,7 +25,6 @@ public class SpeakingOrganizingEventCRUD extends AchievementCRUD{
 		event.setAchievementId(achievement.getAchievementId());
 		try {
 			JSONObject jsonObject = new JSONObject(achievementJson) ;
-			event.setBusinessUnits(jsonObject.getString("businessUnits"));
 			event.setCountry(jsonObject.getString("country"));
 			event.setSession(jsonObject.getString("session"));
 			event.setSessionType(jsonObject.getString("sessionType"));
@@ -60,7 +59,6 @@ public class SpeakingOrganizingEventCRUD extends AchievementCRUD{
 		try {
 			SpeakingOrganizingEvent event = entityManager.find(SpeakingOrganizingEvent.class, achievementJson.getInt("achievementId"));
 		entityManager.getTransaction().begin(); 
-		event.setBusinessUnits(achievementJson.getString("businessUnits"));
 		event.setCountry(achievementJson.getString("country"));
 		event.setSession(achievementJson.getString("session"));
 		event.setSessionType(achievementJson.getString("sessionType"));

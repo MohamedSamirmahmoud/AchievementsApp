@@ -17,7 +17,6 @@ public class SpeakingOrganizingEvent implements Serializable {
 	@Id
 	private int achievementId;
 
-	private String businessUnits;
 
 	private String country;
 
@@ -52,13 +51,6 @@ public class SpeakingOrganizingEvent implements Serializable {
 	}
 
 	
-	public String getBusinessUnits() {
-		return this.businessUnits;
-	}
-
-	public void setBusinessUnits(String businessUnits) {
-		this.businessUnits = businessUnits;
-	}
 
 	public String getCountry() {
 		return this.country;

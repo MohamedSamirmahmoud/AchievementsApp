@@ -24,8 +24,6 @@ public class RevenueInfluenceCRUD extends AchievementCRUD{
 			RevenueInfelunce infelunce = new RevenueInfelunce() ;
 			 infelunce.setAchievement(achievement);
 			 infelunce.setAmount(jsonObject.getInt("amount"));
-			 infelunce.setBrand(jsonObject.get("brand").toString());
-			 infelunce.setBusinessUnits(jsonObject.getString("businessUnits"));
 			 infelunce.setAchievementId(achievement.getAchievementId());
 			 infelunce.setContributionType(jsonObject.getString("contributionType"));
 			 infelunce.setCountry(jsonObject.getString("country"));
@@ -61,8 +59,6 @@ public class RevenueInfluenceCRUD extends AchievementCRUD{
 		try {
 			RevenueInfelunce infelunce =  entityManager.find(RevenueInfelunce.class, achievementJson.getInt("achievementId"));
 			 infelunce.setAmount(achievementJson.getInt("amount"));
-			 infelunce.setBrand(achievementJson.get("brand").toString());
-			 infelunce.setBusinessUnits(achievementJson.getString("businessUnits"));
 			 infelunce.setContributionType(achievementJson.getString("contributionType"));
 			 infelunce.setCountry(achievementJson.getString("country"));
             infelunce.setCustomerName(achievementJson.getString("customerName"));

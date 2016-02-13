@@ -17,9 +17,7 @@ public class CustomerSave implements Serializable {
 	@Id
 	private int achievementId;
 
-	private String brand;
 
-	private String businessUnits;
 
 	private String country;
 
@@ -47,21 +45,6 @@ public class CustomerSave implements Serializable {
 		this.achievementId = achievementId;
 	}
 
-	public String getBrand() {
-		return this.brand;
-	}
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getBusinessUnits() {
-		return this.businessUnits;
-	}
-
-	public void setBusinessUnits(String businessUnits) {
-		this.businessUnits = businessUnits;
-	}
 
 	public String getCountry() {
 		return this.country;

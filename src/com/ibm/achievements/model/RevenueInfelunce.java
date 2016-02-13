@@ -18,9 +18,7 @@ public class RevenueInfelunce implements Serializable {
 
 	private int amount;
 
-	private String brand;
 
-	private String businessUnits;
 
 	private String contributionType;
 
@@ -59,21 +57,7 @@ public class RevenueInfelunce implements Serializable {
 		this.amount = amount;
 	}
 
-	public String getBrand() {
-		return this.brand;
-	}
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getBusinessUnits() {
-		return this.businessUnits;
-	}
-
-	public void setBusinessUnits(String businessUnits) {
-		this.businessUnits = businessUnits;
-	}
+	
 
 	public String getContributionType() {
 		return this.contributionType;

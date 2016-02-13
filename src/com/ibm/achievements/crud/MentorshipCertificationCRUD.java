@@ -68,7 +68,7 @@ public class MentorshipCertificationCRUD implements MentorshipTypesCRUDI{
        EntityManager entityManager = entityManagerFactory. createEntityManager();
        MentorshipCertification mentorshipCertification = entityManager . find(MentorshipCertification.class, Integer.valueOf(achievementId));
        ObjectMapper mapper = new ObjectMapper() ; 
-       DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+       DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		mapper.setDateFormat(df);
 		try {
 			return mapper.writeValueAsString(mentorshipCertification);

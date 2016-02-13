@@ -28,8 +28,6 @@ public class CustomerReferencesCRUD extends AchievementCRUD {
 			CustomerReference customerReference = new CustomerReference();
 			customerReference.setAchievement(achievement);
 			customerReference.setAchievementId(achievement.getAchievementId());
-			customerReference.setBrand(jsonObject.get("brand").toString());
-			customerReference.setBusUnit(jsonObject.get("busUnit").toString());
 			customerReference.setCountry(jsonObject.get("country").toString());
 			customerReference.setCustomerName(jsonObject.get("customerName").toString());
 			customerReference.setEngagementName(jsonObject.getString("engagmentName").toString());
@@ -58,10 +56,8 @@ public class CustomerReferencesCRUD extends AchievementCRUD {
 		EntityManager entityManager = factory.createEntityManager();
 		entityManager.getTransaction().begin(); 
 		Query query = entityManager
-				.createQuery("UPDATE CustomerReference cr SET cr.busUnit=:busUnit ,cr.brand=:brand ,cr.country=:country , cr.engagementName=:engagementName , cr.customerName=:customerName WHERE cr.achievementId=:achievementId ");
+				.createQuery("UPDATE CustomerReference cr SET cr.country=:country , cr.engagementName=:engagementName , cr.customerName=:customerName WHERE cr.achievementId=:achievementId ");
 		try {
-			query.setParameter("brand", achievementJson.get("brand").toString());
-			query.setParameter("busUnit", achievementJson.get("busUnit").toString()) ;
 			query.setParameter("country", achievementJson.get("country").toString()) ;
 			query.setParameter("engagementName", achievementJson.get("engagementName").toString()) ;
 			query.setParameter("customerName", achievementJson.get("customerName").toString()) ;

@@ -33,7 +33,6 @@ public class SuccessStoriesCRUD extends AchievementCRUD {
 			SuccessStory successStory = new SuccessStory();
 			successStory.setAchievement(achievement);
 			successStory.setAchievementId(achievement.getAchievementId());
-			successStory.setBusUnit(jsonObject.get("busUnit").toString());
 			successStory.setCountry(jsonObject.get("country").toString());
 			successStory.setEngagementName(jsonObject.get("engagementName")
 					.toString());
@@ -69,8 +68,7 @@ public class SuccessStoriesCRUD extends AchievementCRUD {
 			EntityManager entityManager = factory.createEntityManager();
 			entityManager.getTransaction().begin();
 			Query query = entityManager
-					.createQuery("UPDATE SuccessStory Ss SET Ss.busUnit=:busUnit, Ss.country=:country, Ss.engagementName=:engagementName, Ss.successStoryLink=:successStoryLink, Ss.type=:successStoriesType  where Ss.achievementId= :achievementId");
-			query.setParameter("busUnit", achievementJson.get("busUnit").toString());
+					.createQuery("UPDATE SuccessStory Ss SET  Ss.country=:country, Ss.engagementName=:engagementName, Ss.successStoryLink=:successStoryLink, Ss.type=:successStoriesType  where Ss.achievementId= :achievementId");
 			query.setParameter("country", achievementJson.get("country").toString());
 			query.setParameter("engagementName", achievementJson.get("engagementName").toString());
 			query.setParameter("successStoryLink", achievementJson.get("successStoryLink").toString());

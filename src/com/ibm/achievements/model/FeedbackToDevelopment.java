@@ -3,22 +3,18 @@ package com.ibm.achievements.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the FEEDBACKTODEVELOPMENT database table.
  * 
  */
 @Entity
-@NamedQuery(name="FeedbackToDevelopment.findAll", query="SELECT f FROM FeedbackToDevelopment f")
+@NamedQuery(name = "FeedbackToDevelopment.findAll", query = "SELECT f FROM FeedbackToDevelopment f")
 public class FeedbackToDevelopment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int achievementId;
 
-	private String brand;
-
-	private String businessUnits;
 
 	private int pmrNumber;
 
@@ -26,9 +22,9 @@ public class FeedbackToDevelopment implements Serializable {
 
 	private String typeOfFeedback;
 
-	//uni-directional one-to-one association to Achievement
+	// uni-directional one-to-one association to Achievement
 	@OneToOne
-	@JoinColumn(name="ACHIEVEMENTID", insertable=false , updatable=false)
+	@JoinColumn(name = "ACHIEVEMENTID", insertable = false, updatable = false)
 	private Achievement achievement;
 
 	public FeedbackToDevelopment() {
@@ -42,22 +38,6 @@ public class FeedbackToDevelopment implements Serializable {
 		this.achievementId = achievementId;
 	}
 
-
-	public String getBrand() {
-		return this.brand;
-	}
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getBusinessUnits() {
-		return this.businessUnits;
-	}
-
-	public void setBusinessUnits(String businessUnits) {
-		this.businessUnits = businessUnits;
-	}
 
 	public int getPmrNumber() {
 		return this.pmrNumber;

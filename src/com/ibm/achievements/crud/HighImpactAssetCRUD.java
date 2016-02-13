@@ -31,7 +31,6 @@ public class HighImpactAssetCRUD extends AchievementCRUD {
 				highImpactAsset.setAchievement(achievement);
 				highImpactAsset.setAchievementId(achievement.getAchievementId());
 				highImpactAsset.setTypeOfAsset(jsonObject.get("typeOfAsset").toString());
-				highImpactAsset.setBrand(jsonObject.getString("brand"));
 				highImpactAsset.setDescription(jsonObject.getString("description"));
 				highImpactAsset.setHighImpactAssetName(jsonObject.getString("highImpactAssetName"));
 				highImpactAsset.setTypeOfAsset2(jsonObject.getString("typeOfAsset2"));
@@ -60,9 +59,8 @@ public class HighImpactAssetCRUD extends AchievementCRUD {
 				.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
  		EntityManager em = factory.createEntityManager();
  		em.getTransaction().begin();
- 		Query query= em.createQuery("UPDATE HighImpactAsset h SET h.typeOfAsset=:typeOfAsset , h.brand=:brand , h.description=:description , h.highImpactAssetName=:highImpactAssetName , h.typeOfAsset2=:typeOfAsset2 where h.achievementId= :achievementId");
+ 		Query query= em.createQuery("UPDATE HighImpactAsset h SET h.typeOfAsset=:typeOfAsset , h.description=:description , h.highImpactAssetName=:highImpactAssetName , h.typeOfAsset2=:typeOfAsset2 where h.achievementId= :achievementId");
  		query.setParameter("typeOfAsset", achievementJson.get("typeOfAsset").toString());
- 		query.setParameter("brand", achievementJson.get("brand").toString());
  		query.setParameter("description",achievementJson.get("description").toString());
  		query.setParameter("highImpactAssetName",achievementJson.get("highImpactAssetName").toString());
  		query.setParameter("typeOfAsset2",achievementJson.get("typeOfAsset2").toString());

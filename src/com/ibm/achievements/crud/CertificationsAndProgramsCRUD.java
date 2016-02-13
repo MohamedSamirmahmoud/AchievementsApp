@@ -62,7 +62,7 @@ public class CertificationsAndProgramsCRUD extends AchievementCRUD {
 		EntityManager entityManager = factroy.createEntityManager();
 		entityManager.getTransaction().begin();
 		Query query = entityManager
-				.createQuery("UPDATE CertificationsAndProgram cab SET  cab.typeOfCertification =: typeOfCertification WHERE cab.achievementId =:achievementId");
+				.createQuery("UPDATE CertificationsAndProgram cab SET  cab.typeOfCertification =:typeOfCertification WHERE cab.achievementId =:achievementId");
 		try {
 			query.setParameter("typeOfCertification",
 					achievementJson.get("typeOfCertification").toString());
@@ -73,7 +73,7 @@ public class CertificationsAndProgramsCRUD extends AchievementCRUD {
 			entityManager.close();
 			try {
 				Class classDifination = Class.forName("com.ibm.achievements.crud."
-						+"CertificationsAndPrograms"+ achievementJson.get("TypeOfCertificationsAndPrograms").toString() + "CRUD");
+						+"CertificationsAndPrograms"+ achievementJson.get("typeOfCertification").toString() + "CRUD");
 				CertificationAndProgramsTypesCRUDI certificationAndProgramsTypesCRUDI = (CertificationAndProgramsTypesCRUDI)classDifination.newInstance() ;
 				certificationAndProgramsTypesCRUDI.updateCertificationAndPrograms(achievementJson) ; 				
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
@@ -97,7 +97,7 @@ public class CertificationsAndProgramsCRUD extends AchievementCRUD {
 				.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager entityManager = factory.createEntityManager();
 		Query query = entityManager
-				.createQuery("SELECT cp from CertificationsAndProgram br WHERE cp.achievementId=:achievementId ");
+				.createQuery("SELECT cp from CertificationsAndProgram cp WHERE cp.achievementId=:achievementId ");
 		query.setParameter("achievementId", achievement.getAchievementId());
 		CertificationsAndProgram certificationandprograms = (CertificationsAndProgram) query
 				.getSingleResult();
